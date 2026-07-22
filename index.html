@@ -101,6 +101,9 @@
     font-weight: 600; margin-bottom: 0.85rem;
   }
   .schedule-grid { display: flex; flex-direction: column; }
+  .mod-link { color: var(--accent); text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; }
+  .mod-link:hover { text-decoration: underline; }
+  details.module { scroll-margin-top: 16px; }
   .sched-day {
     display: grid; grid-template-columns: minmax(78px, max-content) 1fr auto; gap: 0.75rem; align-items: baseline;
     padding: 0.65rem 0; border-top: 1px solid var(--surface-2); font-size: 0.87rem;
@@ -640,5 +643,31 @@
   }
 
   updateProgress();
+
+  // Schedule -> module jump links: "Module N" (and "Modules 1, 2, 5") in the
+  // 2-week schedule scrolls to that module and opens it.
+  document.querySelectorAll('details.module').forEach(function (mod) {
+    var n = mod.querySelector('.mod-num');
+    if (n) mod.id = 'module-' + n.textContent.trim();
+  });
+  document.querySelectorAll('.sched-focus').forEach(function (el) {
+    el.innerHTML = el.innerHTML
+      .replace(/Module\s+(\d+)/g, '<a class="mod-link" href="#module-$1">Module $1</a>')
+      .replace(/Modules\s+((?:\d+,\s*)+\d+)/g, function (m, nums) {
+        return 'Modules ' + nums.replace(/\d+/g, function (d) {
+          return '<a class="mod-link" href="#module-' + d + '">' + d + '</a>';
+        });
+      });
+  });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a.mod-link') : null;
+    if (!a) return;
+    var target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    target.open = true;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', a.getAttribute('href'));
+  });
 })();
 </script>
