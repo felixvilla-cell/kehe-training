@@ -1,0 +1,573 @@
+<title>KeHE Training Curriculum -- FD Onboarding</title>
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --surface: #ffffff;
+    --surface-2: #eeece5;
+    --text: #201f1c;
+    --text-muted: #6b6a63;
+    --line: #dedbd1;
+    --accent: #1f5b63;
+    --accent-soft: #dfeaea;
+    --accent-ink: #ffffff;
+    --done: #6f7d3c;
+    --done-soft: #e7ead9;
+    --ref: #9a5b2e;
+    --ref-soft: #f2e4d4;
+    --radius: 10px;
+    --serif: Iowan Old Style, "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15181a; --surface: #1d2124; --surface-2: #262a2d; --text: #eae8e2;
+      --text-muted: #a3a099; --line: #34383b; --accent: #6fb3ac; --accent-soft: #223234;
+      --accent-ink: #0d1615; --done: #a8bd6e; --done-soft: #262c1d; --ref: #d69a63; --ref-soft: #2e2620;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15181a; --surface: #1d2124; --surface-2: #262a2d; --text: #eae8e2;
+    --text-muted: #a3a099; --line: #34383b; --accent: #6fb3ac; --accent-soft: #223234;
+    --accent-ink: #0d1615; --done: #a8bd6e; --done-soft: #262c1d; --ref: #d69a63; --ref-soft: #2e2620;
+  }
+  :root[data-theme="light"] {
+    --bg: #f6f5f1; --surface: #ffffff; --surface-2: #eeece5; --text: #201f1c;
+    --text-muted: #6b6a63; --line: #dedbd1; --accent: #1f5b63; --accent-soft: #dfeaea;
+    --accent-ink: #ffffff; --done: #6f7d3c; --done-soft: #e7ead9; --ref: #9a5b2e; --ref-soft: #f2e4d4;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+  header.page { margin-bottom: 1.75rem; }
+  .eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.11em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin-bottom: 0.6rem;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 500; font-size: 2rem; line-height: 1.15;
+    margin: 0 0 0.5rem; text-wrap: balance;
+  }
+  .sub { color: var(--text-muted); font-size: 0.98rem; line-height: 1.55; max-width: 62ch; }
+
+  .stat-row {
+    display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1.5rem 0 1.25rem;
+  }
+  .stat {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 0.85rem 1.05rem; flex: 1; min-width: 140px;
+  }
+  .stat .num {
+    font-family: var(--serif); font-size: 1.5rem; color: var(--accent);
+    font-variant-numeric: tabular-nums; line-height: 1.1;
+  }
+  .stat .lbl { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+  .progress-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1.1rem 1.25rem; margin: 0 0 1.5rem; display: flex; align-items: center; gap: 1rem;
+  }
+  .progress-ring-wrap { flex-shrink: 0; }
+  .progress-meta { flex: 1; min-width: 0; }
+  .progress-meta .label { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+  .progress-bar-track { height: 7px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.35s ease; width: 0%; }
+  .progress-nums { font-variant-numeric: tabular-nums; font-size: 0.82rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+  .methodology {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1rem 1.15rem; margin-bottom: 1.25rem; font-size: 0.86rem; line-height: 1.6; color: var(--text);
+  }
+  .methodology b { color: var(--accent); }
+  .methodology summary { cursor: pointer; font-weight: 600; color: var(--text); }
+
+  .schedule {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1rem 1.15rem 0.3rem; margin-bottom: 1.5rem;
+  }
+  .schedule-title {
+    font-size: 0.72rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent);
+    font-weight: 600; margin-bottom: 0.85rem;
+  }
+  .schedule-grid { display: flex; flex-direction: column; }
+  .sched-day {
+    display: grid; grid-template-columns: minmax(78px, max-content) 1fr auto; gap: 0.75rem; align-items: baseline;
+    padding: 0.65rem 0; border-top: 1px solid var(--surface-2); font-size: 0.87rem;
+  }
+  .sched-day:first-child { border-top: none; }
+  .sched-date { font-weight: 600; white-space: nowrap; }
+  .sched-today {
+    display: block; font-size: 0.65rem; text-transform: uppercase; color: var(--accent);
+    background: var(--accent-soft); padding: 0.05rem 0.35rem; border-radius: 4px;
+    margin-top: 0.25rem; letter-spacing: 0.03em; width: fit-content;
+  }
+  .sched-focus { color: var(--text); line-height: 1.5; }
+  .sched-hours {
+    font-variant-numeric: tabular-nums; color: var(--text-muted); font-size: 0.8rem; text-align: right;
+    white-space: nowrap;
+  }
+  .sched-checkpoint { background: var(--accent-soft); margin: 0 -1.15rem; padding: 0.65rem 1.15rem; border-top-color: transparent; }
+  .sched-checkpoint .sched-focus { color: var(--text); }
+  .mod-day {
+    display: inline-block; font-size: 0.72rem; color: var(--ref); background: var(--ref-soft);
+    padding: 0.1rem 0.5rem; border-radius: 99px; margin-top: 0.3rem;
+  }
+
+  .queued {
+    background: var(--ref-soft); border: 1px solid color-mix(in srgb, var(--ref) 35%, var(--line));
+    border-radius: var(--radius); padding: 0.85rem 1.1rem; font-size: 0.88rem; color: var(--text);
+    margin-bottom: 2rem; line-height: 1.5;
+  }
+  .queued b { color: var(--ref); }
+
+  .excluded {
+    font-size: 0.85rem; color: var(--text-muted); border-top: 1px dashed var(--line);
+    margin-top: 3rem; padding-top: 1.25rem; line-height: 1.6;
+  }
+  .excluded b { color: var(--text); }
+
+  details.module {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    margin-bottom: 0.85rem; overflow: hidden;
+  }
+  details.module[data-kind="reference"] { border-style: dashed; }
+  details.module > summary {
+    list-style: none; cursor: pointer; padding: 0.95rem 1.15rem; display: flex;
+    align-items: center; gap: 0.85rem; -webkit-tap-highlight-color: transparent;
+  }
+  details.module > summary::-webkit-details-marker { display: none; }
+  .chev { width: 18px; height: 18px; flex-shrink: 0; color: var(--text-muted); transition: transform 0.2s ease; }
+  details[open] > summary .chev { transform: rotate(90deg); }
+
+  .mod-num {
+    font-family: var(--serif); font-size: 1.5rem; color: var(--accent); width: 1.6em;
+    flex-shrink: 0; text-align: center;
+  }
+  details.module[data-kind="reference"] .mod-num { color: var(--ref); }
+
+  .mod-title-block { flex: 1; min-width: 0; }
+  .mod-title { font-weight: 600; font-size: 1.02rem; }
+  .mod-time { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.1rem; }
+  .mod-badge {
+    font-size: 0.76rem; font-variant-numeric: tabular-nums; color: var(--accent);
+    background: var(--accent-soft); padding: 0.2rem 0.55rem; border-radius: 99px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  details.module[data-kind="reference"] .mod-badge { color: var(--ref); background: var(--ref-soft); }
+
+  .mod-body { padding: 0 1.15rem 1.1rem; border-top: 1px solid var(--line); }
+  .mod-note { font-size: 0.85rem; color: var(--text-muted); margin: 0.9rem 0 0.9rem; line-height: 1.5; }
+  ul.items { list-style: none; margin: 0; padding: 0; }
+  li.item { display: flex; gap: 0.65rem; align-items: flex-start; padding: 0.6rem 0; border-top: 1px solid var(--surface-2); }
+  li.item:first-child { border-top: none; }
+  li.item input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none; width: 18px; height: 18px; border: 1.5px solid var(--line);
+    border-radius: 5px; margin-top: 0.15rem; flex-shrink: 0; cursor: pointer; background: var(--surface); position: relative;
+  }
+  li.item input[type="checkbox"]:checked { background: var(--done); border-color: var(--done); }
+  li.item input[type="checkbox"]:checked::after {
+    content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 9px;
+    border: solid var(--accent-ink); border-width: 0 2px 2px 0; transform: rotate(40deg);
+  }
+  li.item input[type="checkbox"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .item-text { flex: 1; min-width: 0; }
+  .item-name { font-size: 0.93rem; line-height: 1.4; display: flex; justify-content: space-between; gap: 0.5rem; }
+  .item-mins {
+    font-variant-numeric: tabular-nums; font-size: 0.76rem; color: var(--accent); background: var(--accent-soft);
+    padding: 0.05rem 0.45rem; border-radius: 99px; white-space: nowrap; flex-shrink: 0; height: fit-content;
+  }
+  li.item.done .item-name { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--line); }
+  li.item.done .item-mins { opacity: 0.5; }
+  .item-path {
+    font-size: 0.76rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.7; word-break: break-word;
+  }
+  .item-path a { color: var(--accent); text-decoration: none; }
+  .item-path a:hover { text-decoration: underline; }
+  .item-est { color: var(--text-muted); }
+  .item-tag {
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ref);
+    background: var(--ref-soft); padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.4rem; white-space: nowrap;
+  }
+  footer.page { margin-top: 2.5rem; font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+</style>
+
+<div class="wrap">
+  <header class="page">
+    <div class="eyebrow">KeHE Commercial Connections Toolkit &amp; Sales Solutions SharePoint</div>
+    <h1>Training curriculum</h1>
+    <p class="sub">Every training video and resource found across MerchandiseSolutions2, SalesSolutions,
+      ExclusiveBrands and KeHEShowsEvents, organized into a sequence. Every file name links straight to it
+      on SharePoint (opens in your dad's authenticated session). Check things off as you go -- it saves in
+      this browser.</p>
+  </header>
+
+  <div class="stat-row">
+    <div class="stat"><div class="num">41h 16m</div><div class="lbl">total time, with notes/pauses</div></div>
+    <div class="stat"><div class="num">32h 51m</div><div class="lbl">raw watch + read time</div></div>
+    <div class="stat"><div class="num">28h 58m / 3h 53m</div><div class="lbl">video / reading split</div></div>
+  </div>
+
+  <details class="methodology">
+    <summary>How these numbers were calculated</summary>
+    <p style="margin-top:0.75rem">You asked, fair question -- the first version of this was a guess. This one isn't:</p>
+    <ul style="padding-left:1.1rem; margin:0.5rem 0">
+      <li><b>Video times are measured, not estimated.</b> Loaded each file's actual metadata through the
+        authenticated SharePoint session and read its real duration. 41 of 43 videos measured directly.</li>
+      <li><b>Two exceptions:</b> the AOM "Comprehensive Resource Training" Session 1 &amp; 2 (1.3-1.4GB each)
+        wouldn't load metadata in a reasonable time, so those two are estimated from file size using the
+        median bitrate (6.5 MB/min) observed across the 41 videos that DID measure. Real bitrate varied
+        2-3x between files, so treat those two specifically as rough.</li>
+      <li><b>Deck/spreadsheet times are from real slide/page/row counts</b> -- downloaded each file and
+        counted directly (python-pptx / PyMuPDF / openpyxl), not guessed. ~45 sec/slide, ~1 min/page,
+        scaled for spreadsheets.</li>
+      <li><b>Note-taking buffer:</b> the "with notes/pauses" total adds +25% on top of video time and +30%
+        on top of reading time, since nobody watches a training video start-to-finish without pausing to
+        write something down. That's what changed the total from the ~14.5 hours I guessed before to
+        41h 16m measured.</li>
+    </ul>
+  </details>
+
+  <div class="progress-card">
+    <div class="progress-ring-wrap">
+      <svg width="52" height="52" viewBox="0 0 52 52">
+        <circle cx="26" cy="26" r="22" fill="none" stroke="var(--surface-2)" stroke-width="6"/>
+        <circle id="ringFill" cx="26" cy="26" r="22" fill="none" stroke="var(--accent)" stroke-width="6"
+          stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="138.2"
+          transform="rotate(-90 26 26)"/>
+      </svg>
+    </div>
+    <div class="progress-meta">
+      <div class="label">Overall progress</div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="barFill"></div></div>
+      <div class="progress-nums" id="progressNums">0 / 0 items</div>
+    </div>
+  </div>
+
+  <div class="schedule">
+    <div class="schedule-title">2-week schedule</div>
+    <div class="schedule-grid">
+      <div class="sched-day">
+        <div class="sched-date">Wed 7/22 <span class="sched-today">today</span></div>
+        <div class="sched-focus">Module 1 -- Business &amp; Platform Foundations</div>
+        <div class="sched-hours">4h 49m</div>
+      </div>
+      <div class="sched-day">
+        <div class="sched-date">Thu 7/23</div>
+        <div class="sched-focus">Module 2 -- Power BI &amp; Sales Data Tools, then Module 5 -- KeHE Connect Deep Dive</div>
+        <div class="sched-hours">7h 18m</div>
+      </div>
+      <div class="sched-day sched-checkpoint">
+        <div class="sched-date">Fri 7/24</div>
+        <div class="sched-focus"><b>Lunch &amp; Learn #1.</b> Recap of Modules 1, 2, 5 -- key takeaways, a live
+          walkthrough of one tool, open questions.</div>
+        <div class="sched-hours">--</div>
+      </div>
+      <div class="sched-day">
+        <div class="sched-date">Mon 7/27</div>
+        <div class="sched-focus">Module 3 -- AOM core (everything except the two flagged mega-sessions)</div>
+        <div class="sched-hours">~5h 5m</div>
+      </div>
+      <div class="sched-day">
+        <div class="sched-date">Tue 7/28</div>
+        <div class="sched-focus">Module 6 -- Category &amp; Product-Specific</div>
+        <div class="sched-hours">7h 40m</div>
+      </div>
+      <div class="sched-day">
+        <div class="sched-date">Wed 7/29</div>
+        <div class="sched-focus">Module 4 -- Sales Craft &amp; Culture, then Module 7 -- Level Up Live</div>
+        <div class="sched-hours">7h 29m</div>
+      </div>
+      <div class="sched-day">
+        <div class="sched-date">Thu 7/30</div>
+        <div class="sched-focus">Flex day -- the two flagged AOM mega-sessions (play at 1.5-2x) plus
+          catch-up on anything still open, then prep for Friday</div>
+        <div class="sched-hours">~8h 55m at 1x<br>~5h at 1.5-2x</div>
+      </div>
+      <div class="sched-day sched-checkpoint">
+        <div class="sched-date">Fri 7/31</div>
+        <div class="sched-focus"><b>Final learnings.</b> A one-pager he keeps -- top takeaways across all
+          7 modules, what surprised him, what he'd want to go deeper on.</div>
+        <div class="sched-hours">--</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="queued">
+    <b>Queued for another day:</b> a separate pass on what the Export Sales team can pull from this same
+    SharePoint to push KeHE promotions from their DCs. Not part of this curriculum -- flagged so it doesn't
+    get lost.
+  </div>
+
+  <details class="module" open data-kind="core">
+    <summary>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span class="mod-num">1</span>
+      <div class="mod-title-block">
+        <div class="mod-title">Business & Platform Foundations</div>
+        <div class="mod-time">4h 49m with notes/pauses (3h 48m raw)</div>
+        <div class="mod-day">Wed 7/22</div>
+      </div>
+      <span class="mod-badge" data-count>0/11</span>
+    </summary>
+    <div class="mod-body">
+      <p class="mod-note">Learning &amp; Development &gt; Onboarding -- the current, actively maintained new-hire path (skips the older duplicate "NEW HIRE TRAINING" archive).</p>
+      <ul class="items">
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Commercial Organization Overview.pptx<span class="item-mins">13 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Commercial%20Overview/Company%20and%20Commercial%20Org%20Overview/Commercial%20Organization%20Overview.pptx" target="_blank" rel="noopener">Commercial Organization Overview.pptx</a> <span class="item-est">(13 min (17 slides))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Sales Support Overview.pptx<span class="item-mins">14 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Commercial%20Overview/Sales%20Support%20Overview/Sales%20Support%20Overview.pptx" target="_blank" rel="noopener">Sales Support Overview.pptx</a> <span class="item-est">(14 min (19 slides))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Acronym &amp; Freq Used Terms Spreadsheet.xlsx<span class="item-mins">20 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Commercial%20Overview/Acronyms/Acronym%20&%20Freq%20Used%20Terms%20Spreadsheet.xlsx" target="_blank" rel="noopener">Acronym &amp; Freq Used Terms Spreadsheet.xlsx</a> <span class="item-est">(20 min (314 rows))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Category Management Overview Recorded Training.mp4<span class="item-mins">28 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Know%20the%20Business/Cross%20Functional%20Teams/Category%20Management%20Overview%20Recorded%20Training.mp4" target="_blank" rel="noopener">Category Management Overview Recorded Training.mp4</a> <span class="item-est">(27.9 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Marketing Overview Recorded Training.mp4<span class="item-mins">21 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Know%20the%20Business/Cross%20Functional%20Teams/Marketing%20Overview%20Recorded%20Training.mp4" target="_blank" rel="noopener">Marketing Overview Recorded Training.mp4</a> <span class="item-est">(20.8 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Shows &amp; Events Overview Recorded Training.mp4<span class="item-mins">20 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Know%20the%20Business/Cross%20Functional%20Teams/Shows%20&%20Events%20Overview%20Recorded%20Training.mp4" target="_blank" rel="noopener">Shows &amp; Events Overview Recorded Training.mp4</a> <span class="item-est">(20.1 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Basics of Connect Retailer_updated Nov 2025.pdf<span class="item-mins">17 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/CONNECT%20Overview/Basics%20of%20Connect%20Retailer_updated%20Nov%202025.pdf" target="_blank" rel="noopener">Basics of Connect Retailer_updated Nov 2025.pdf</a> <span class="item-est">(17 min (17 pages))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">New Hire Technology Overview.pptx<span class="item-mins">26 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/CONNECT%20Overview/New%20Hire%20Technology%20Overview.pptx" target="_blank" rel="noopener">New Hire Technology Overview.pptx</a> <span class="item-est">(26 min (34 slides))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Ordering at KeHE 11.15.2024.mp4<span class="item-mins">42 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Ordering%20at%20KeHE/Ordering%20at%20KeHE%2011.15.2024.mp4" target="_blank" rel="noopener">Ordering at KeHE 11.15.2024.mp4</a> <span class="item-est">(42.4 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">P&amp;L Overview Recorded Training.mp4<span class="item-mins">14 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/P&L/P&L%20Overview%20Recorded%20Training.mp4" target="_blank" rel="noopener">P&amp;L Overview Recorded Training.mp4</a> <span class="item-est">(13.7 min (retry))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Excel XLookup Training Video.mp4<span class="item-mins">13 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Excel/Excel%20XLookup%20Training%20Video.mp4" target="_blank" rel="noopener">Excel XLookup Training Video.mp4</a> <span class="item-est">(12.9 min)</span></div></div></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="module" data-kind="core">
+    <summary>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span class="mod-num">2</span>
+      <div class="mod-title-block">
+        <div class="mod-title">Power BI & Sales Data Tools</div>
+        <div class="mod-time">4h 19m with notes/pauses (3h 27m raw)</div>
+        <div class="mod-day">Thu 7/23</div>
+      </div>
+      <span class="mod-badge" data-count>0/9</span>
+    </summary>
+    <div class="mod-body">
+      <p class="mod-note">KeHE's internal reporting suite, one video per report type. Fine to skip reports GBED doesn't pull yet.</p>
+      <ul class="items">
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Power BI Overview - New Hire Session May 2024.mp4<span class="item-mins">46 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/Power%20BI%20Overview%20-%20New%20Hire%20Session%20May%202024.mp4" target="_blank" rel="noopener">Power BI Overview - New Hire Session May 2024.mp4</a> <span class="item-est">(45.9 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">New Hires - What is PowerBI.pptx + Info Guide.pdf<span class="item-mins">11 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/New%20Hires%20-%20What%20is%20PowerBI.pptx" target="_blank" rel="noopener">New Hires - What is PowerBI.pptx</a> <span class="item-est">(9 min (12 slides))</span><br><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/PowerBI%20Info%20Guide.pdf" target="_blank" rel="noopener">PowerBI Info Guide.pdf</a> <span class="item-est">(2 min (2 pages))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">PO Enterprise Dashboard Training (Session 2).mp4<span class="item-mins">1h 3m</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/PO%20Enterprise%20Dashboard%20Training%20(Session%202)-112025-Recording.mp4" target="_blank" rel="noopener">PO Enterprise Dashboard Training (Session 2)-112025-Recording.mp4</a> <span class="item-est">(63.2 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Retailer Scorecards Meeting Recording.mp4<span class="item-mins">16 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/Sales%20Tool%20Guide%20Training%20Videos/Retailer%20Scorecards/Retailer%20Scorecards-20251015_144554-Meeting%20Recording.mp4" target="_blank" rel="noopener">Retailer Scorecards-20251015_144554-Meeting Recording.mp4</a> <span class="item-est">(15.5 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Retailer Assortment Recommendation.mp4<span class="item-mins">30 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/Sales%20Tool%20Guide%20Training%20Videos/Retailer%20Assortment%20Recommendation/Retailer%20Assortment%20Recommendation.mp4" target="_blank" rel="noopener">Retailer Assortment Recommendation.mp4</a> <span class="item-est">(29.7 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Assortment Scorecard Training.webm<span class="item-mins">12 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/Assortment%20Scorecard%20Training.webm" target="_blank" rel="noopener">Assortment Scorecard Training.webm</a> <span class="item-est">(11.9 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Sales Movement Training.mp4<span class="item-mins">10 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/Sales%20Tool%20Guide%20Training%20Videos/Movement/Sales%20Movement%20Training.mp4" target="_blank" rel="noopener">Sales Movement Training.mp4</a> <span class="item-est">(10.0 min (retry))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Gap Void Training Meeting Recording.mp4<span class="item-mins">8 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/Sales%20Tool%20Guide%20Training%20Videos/Gap%20Void/Gap%20Void%20Training-20251020_165830-Meeting%20Recording.mp4" target="_blank" rel="noopener">Gap Void Training-20251020_165830-Meeting Recording.mp4</a> <span class="item-est">(8.0 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Item Master + MDA Report Training.webm<span class="item-mins">12 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/Sales%20Tool%20Guide%20Training%20Videos/Item%20Master%20PBI/Item%20Master%20Training.webm" target="_blank" rel="noopener">Item Master Training.webm</a> <span class="item-est">(5.1 min)</span><br><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/Power%20BI%20101/Sales%20Tool%20Guide%20Training%20Videos/MDA%20Report%20by%20Fiscal%20Period/MDA%20Report%20by%20Fiscal%20Period%20Training.webm" target="_blank" rel="noopener">MDA Report by Fiscal Period Training.webm</a> <span class="item-est">(6.5 min)</span></div></div></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="module" data-kind="core">
+    <summary>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span class="mod-num">3</span>
+      <div class="mod-title-block">
+        <div class="mod-title">AOM (Account/Order Management)</div>
+        <div class="mod-time">14h with notes/pauses (11h 10m raw)</div>
+        <div class="mod-day">Mon 7/27 (core) + Thu 7/30 (2 flagged sessions)</div>
+      </div>
+      <span class="mod-badge" data-count>0/8</span>
+    </summary>
+    <div class="mod-body">
+      <p class="mod-note">AOM is KeHE's automated ordering/allocation process. <b>Two of these eight items (the "Comprehensive Resource Training" Session 1 &amp; 2, both 1.3GB+) could not be measured directly -- their time is estimated from file size and carries real uncertainty. They also happen to be the single biggest chunk of the entire curriculum. Consider starting with everything else in this module and coming back to those two last, possibly at 1.5x-2x playback.</p>
+      <ul class="items">
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">AOM Overview Recorded Training.mp4<span class="item-mins">30 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/AOM's%20101/AOM%20Overview%20Recorded%20Training.mp4" target="_blank" rel="noopener">AOM Overview Recorded Training.mp4</a> <span class="item-est">(29.9 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">AOM Comprehensive Resource Training Session 1 &amp; 2.mp4<span class="item-mins">7h 6m</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/AOM's%20101/AOM%20Comprehensive%20Resource%20Training%20Session%201.mp4" target="_blank" rel="noopener">AOM Comprehensive Resource Training Session 1.mp4</a> <span class="item-est">(~212 min (estimated from file size, probe failed))</span><br><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/AOM's%20101/AOM%20Comprehensive%20Resource%20Training%20Session%202.mp4" target="_blank" rel="noopener">AOM Comprehensive Resource Training Session 2.mp4</a> <span class="item-est">(~215 min (estimated from file size, probe failed))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">AOM ACTIVITIES POWERAPPS TRAINING (1 of 2).mp4<span class="item-mins">1h</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/AOM's%20101/AOM%20ACTIVITIES%20POWERAPPS%20TRAINING%209.12.23.mp4" target="_blank" rel="noopener">AOM ACTIVITIES POWERAPPS TRAINING 9.12.23.mp4</a> <span class="item-est">(60.0 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">New AOM Excess Inventory Report Q&amp;A Meeting Recording.mp4<span class="item-mins">1h 8m</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Onboarding/Learn%20the%20Basics/AOM's%20101/New%20AOM%20Excess%20Inventory%20Report%20-%20Training%20_%20Q&A-20241024_130056-Meeting%20Recording.mp4" target="_blank" rel="noopener">New AOM Excess Inventory Report - Training _ Q&amp;A-20241024_130056-Meeting Recording.mp4</a> <span class="item-est">(68.3 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">AOM PAR Dashboard Training.pdf + PBI Announcement.pdf<span class="item-mins">9 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/AOM%20TRAINING%20RESOURCES/Training%20Materials/Product%20Availability%20Report/AOM%20PAR%20Dashboard%20Training%20.pdf" target="_blank" rel="noopener">AOM PAR Dashboard Training .pdf</a> <span class="item-est">(7 min (7 pages))</span><br><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/AOM%20TRAINING%20RESOURCES/Training%20Materials/Product%20Availability%20Report/Product%20Availability%20Report%20Power%20BI%20Announcement.pdf" target="_blank" rel="noopener">Product Availability Report Power BI Announcement.pdf</a> <span class="item-est">(2 min (1 pages))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">New Item AOM Forecasting Dashboard 10.10.mp4<span class="item-mins">22 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/AOM%20TRAINING%20RESOURCES/Training%20Recordings/New%20Item%20AOM%20Forecasting%20Dashboard%2010.10.mp4" target="_blank" rel="noopener">New Item AOM Forecasting Dashboard 10.10.mp4</a> <span class="item-est">(21.9 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Reduce Product Requirement Video.mp4 + SOP.pdf<span class="item-mins">7 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/AOM%20TRAINING%20RESOURCES/Training%20Recordings/Reduce%20Product%20Requirement%20Video.mp4" target="_blank" rel="noopener">Reduce Product Requirement Video.mp4</a> <span class="item-est">(5 min (unknown type, default 5min))</span><br><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/AOM%20TRAINING%20RESOURCES/Reduce%20Product%20Requirement%20(RPR)/Reduce%20Product%20Requirement%20(RPR)%20SOP.pdf" target="_blank" rel="noopener">Reduce Product Requirement (RPR) SOP.pdf</a> <span class="item-est">(2 min (2 pages))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Managing AOM Execution/Excess/Readiness decks<span class="item-mins">47 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Level%20Up%20Live/AOMs%20101/Managing%20the%20AOM%20Execution%20Process.pptx" target="_blank" rel="noopener">Managing the AOM Execution Process.pptx</a> <span class="item-est">(17 min (23 slides))</span><br><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Level%20Up%20Live/AOMs%20101/Managing%20the%20AOM%20Excess%20Process.pptx" target="_blank" rel="noopener">Managing the AOM Excess Process.pptx</a> <span class="item-est">(16 min (21 slides))</span><br><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Level%20Up%20Live/AOMs%20101/Managing%20the%20AOM%20Readiness%20Process%20Deck.pptx" target="_blank" rel="noopener">Managing the AOM Readiness Process Deck.pptx</a> <span class="item-est">(14 min (18 slides))</span></div></div></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="module" data-kind="core">
+    <summary>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span class="mod-num">4</span>
+      <div class="mod-title-block">
+        <div class="mod-title">Sales Craft & Culture</div>
+        <div class="mod-time">6h 16m with notes/pauses (5h 1m raw)</div>
+        <div class="mod-day">Wed 7/29</div>
+      </div>
+      <span class="mod-badge" data-count>0/8</span>
+    </summary>
+    <div class="mod-body">
+      <p class="mod-note">What the job feels like, from people doing it. A lot of these are 25-58 minute recorded webinars -- good candidates for 1.5x playback.</p>
+      <ul class="items">
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">KeHE Sales Rep - Steve Zimmerman.mp4<span class="item-mins">25 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/How%20to%20Prepare%20for%20a%20Sales%20Call/What%20does%20it%20mean%20to%20be%20a%20KeHE%20Sales%20Rep/Steve%20Zimmerman_What%20does%20it%20mean%20to%20be%20a%20KeHE%20Sales%20Rep%201.mp4" target="_blank" rel="noopener">Steve Zimmerman_What does it mean to be a KeHE Sales Rep 1.mp4</a> <span class="item-est">(25.3 min (retry))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">KeHE Sales Rep - Ellie Bottomly.mp4<span class="item-mins">22 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/How%20to%20Prepare%20for%20a%20Sales%20Call/What%20does%20it%20mean%20to%20be%20a%20KeHE%20Sales%20Rep/What%20it%20means%20to%20be%20a%20KeHE%20Sales%20Rep_%20Ellie%20Bottomly.mp4" target="_blank" rel="noopener">What it means to be a KeHE Sales Rep_ Ellie Bottomly.mp4</a> <span class="item-est">(22.2 min (retry))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Learnings from Leadership - Shellie Wood.mp4<span class="item-mins">25 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/Learnings%20from%20Leadership/Learnings%20from%20Leadership%20with%20Shellie%20Wood.mp4" target="_blank" rel="noopener">Learnings from Leadership with Shellie Wood.mp4</a> <span class="item-est">(24.6 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Learnings from Leadership - Mark Kroencke 1 &amp; 2.mp4<span class="item-mins">54 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/Learnings%20from%20Leadership/Learnings%20from%20Leadership%20with%20Mark%20Kroencke.mp4" target="_blank" rel="noopener">Learnings from Leadership with Mark Kroencke.mp4</a> <span class="item-est">(26.1 min)</span><br><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/Learnings%20from%20Leadership/Learnings%20from%20Leadership%20with%20Mark%20Kroencke%202.mp4" target="_blank" rel="noopener">Learnings from Leadership with Mark Kroencke 2.mp4</a> <span class="item-est">(27.7 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Learnings from Leadership - Chris Graas.mp4<span class="item-mins">36 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/Learnings%20from%20Leadership/Learnings%20from%20Leadership%20with%20Chris%20Graas.mp4" target="_blank" rel="noopener">Learnings from Leadership with Chris Graas.mp4</a> <span class="item-est">(36.2 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Learnings from Leadership - Lisa Burke.mp4<span class="item-mins">25 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/Learnings%20from%20Leadership/Learnings%20from%20Leadership%20with%20Lisa%20Burke.mp4" target="_blank" rel="noopener">Learnings from Leadership with Lisa Burke.mp4</a> <span class="item-est">(24.7 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Pre-Call Assortment &amp; Innovation Training (AM).mp4<span class="item-mins">56 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/How%20to%20Prepare%20for%20a%20Sales%20Call/PRE-CALL%20ASSORTMENT%20&%20INNOVATION%20TRAINING%20RECORDINGS%20AND%20DECKS/Recorded%20AM%20Webinar%20Session%20-%20PRE-CALL%20ASSORTMENT%20&%20INNOVATION%20TRAINING.mp4" target="_blank" rel="noopener">Recorded AM Webinar Session - PRE-CALL ASSORTMENT &amp; INNOVATION TRAINING.mp4</a> <span class="item-est">(55.6 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Pre-Call Financial &amp; Operations Training (AM).mp4<span class="item-mins">58 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/How%20to%20Prepare%20for%20a%20Sales%20Call/PRE-CALL%20FINANCIAL%20&%20OPERATIONS%20TRAINING%20RECORDINGS%20AND%20DECKS/PRE-CALL%20FINANCIAL%20&%20OPERATIONS%20TRAINING%20RECORDING%20-%20AMs.mp4" target="_blank" rel="noopener">PRE-CALL FINANCIAL &amp; OPERATIONS TRAINING RECORDING - AMs.mp4</a> <span class="item-est">(58.3 min)</span></div></div></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="module" data-kind="core">
+    <summary>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span class="mod-num">5</span>
+      <div class="mod-title-block">
+        <div class="mod-title">KeHE Connect Platform Deep Dive</div>
+        <div class="mod-time">2h 59m with notes/pauses (2h 23m raw)</div>
+        <div class="mod-day">Thu 7/23</div>
+      </div>
+      <span class="mod-badge" data-count>0/7</span>
+    </summary>
+    <div class="mod-body">
+      <p class="mod-note">The system your whole book runs through.</p>
+      <ul class="items">
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">CONNECT Direct Intro Video- Small.mp4<span class="item-mins">1 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/KEHE%20CONNECT/KEHE%20CONNECT%20DIRECT/External%20Materials/CONNECT%20Direct%20Intro%20Video-%20Small.mp4" target="_blank" rel="noopener">CONNECT Direct Intro Video- Small.mp4</a> <span class="item-est">(1.3 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Viewing Product Data in CONNECT Enterprise.mp4<span class="item-mins">3 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/KEHE%20CONNECT/CONNECT%20ENTERPRISE/Viewing%20Product%20Data%20in%20CONNECT%20Enterprise_090222.mp4" target="_blank" rel="noopener">Viewing Product Data in CONNECT Enterprise_090222.mp4</a> <span class="item-est">(3.4 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Manage Retailer Contacts in CONNECT Enterprise.mp4<span class="item-mins">25 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/KEHE%20CONNECT/CONNECT%20ENTERPRISE/Manage%20Your%20Retailer%20Contacts%20in%20CONNECT%20Enterprise%20-%20Training%20Session%20Recording.mp4" target="_blank" rel="noopener">Manage Your Retailer Contacts in CONNECT Enterprise - Training Session Recording.mp4</a> <span class="item-est">(24.7 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Product Lists_Training Video.mp4<span class="item-mins">39 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/KEHE%20CONNECT/CONNECT%20RETAILER/Product%20Lists/Product%20Lists_Training%20Video.mp4" target="_blank" rel="noopener">Product Lists_Training Video.mp4</a> <span class="item-est">(38.7 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">connect retailer basics.pptx<span class="item-mins">13 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Tools%2C%20Systems%20and%20Processes%20Training/Connect/connect%20retailer%20basics.pptx" target="_blank" rel="noopener">connect retailer basics.pptx</a> <span class="item-est">(13 min (17 slides))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Credits in CONNECT Live Training.mp4<span class="item-mins">55 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/KEHE%20CONNECT/CREDITS%20SUBMISSIONS%20IN%20KEHE%20CONNECT%20RETAILER%20RESOURCES/GLR%20materials/Credits%20in%20CONNECT%20Live%20Training.mp4" target="_blank" rel="noopener">Credits in CONNECT Live Training.mp4</a> <span class="item-est">(55.0 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Recording of Customer Care Training.mp4<span class="item-mins">6 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/KEHE%20CONNECT/CREDITS%20SUBMISSIONS%20IN%20KEHE%20CONNECT%20RETAILER%20RESOURCES/Recording%20of%20Customer%20Care%20Training.mp4" target="_blank" rel="noopener">Recording of Customer Care Training.mp4</a> <span class="item-est">(6.5 min)</span></div></div></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="module" data-kind="core">
+    <summary>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span class="mod-num">6</span>
+      <div class="mod-title-block">
+        <div class="mod-title">Category & Product-Specific</div>
+        <div class="mod-time">7h 40m with notes/pauses (6h 8m raw)</div>
+        <div class="mod-day">Tue 7/28</div>
+      </div>
+      <span class="mod-badge" data-count>0/6</span>
+    </summary>
+    <div class="mod-body">
+      <p class="mod-note">One item here (the Fresh Marketplace Value Prop recording) runs 2h 24m by itself -- it's a full show-training webinar, not a quick overview. Play it at 1.5x-2x or treat as optional for a first pass.</p>
+      <ul class="items">
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Cheese101 Training_Bill_Stephenson.mp4<span class="item-mins">41 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Assortment%20Product%20Trainings%20&%20Resources/Cheese/Cheese%20-%20Dec%202023%20Training/Cheese101%20Training_Bill_Stephenson.mp4" target="_blank" rel="noopener">Cheese101 Training_Bill_Stephenson.mp4</a> <span class="item-est">(40.7 min (retry))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">HOL24 VMS &amp; NUTRI WELLNESS RECORDED TRAINING.mp4<span class="item-mins">1h 13m</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/KEHE%20SALES%20UNIVERSITY/Vitamins%2C%20Minerals%20&%20Supplements%2C%20Nutritional%20Wellness%20-%20June%202024%20Training/HOL24%20VMS%20&%20NUTRI%20WELLNESS%20RECORDED%20TRAINING.mp4" target="_blank" rel="noopener">HOL24 VMS &amp; NUTRI WELLNESS RECORDED TRAINING.mp4</a> <span class="item-est">(73.4 min (retry))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Fresh Marketplace Value Prop Training Recording.mp4<span class="item-mins">2h 24m</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/KEHE%20SALES%20UNIVERSITY/The%20Fresh%20Marketplace%20Value%20Prop%20-%20Feb%202025%20Training/KeHE%20Sales%20University%20SUM25%20Show%20Fresh%20Marketplace%20Value%20Prop%20Training%20Recording.mp4" target="_blank" rel="noopener">KeHE Sales University SUM25 Show Fresh Marketplace Value Prop Training Recording.mp4</a> <span class="item-est">(143.5 min (retry))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Exclusive Brands Overview Recorded Training.mp4<span class="item-mins">12 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/NEW%20HIRE%20TRAINING/Fresh%20&%20Exclusive%20Brands/Exclusive%20Brands%20Overview%20Recorded%20Training.mp4" target="_blank" rel="noopener">Exclusive Brands Overview Recorded Training.mp4</a> <span class="item-est">(12.1 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Sales PROMOBOOK Training.mp4 + Formatting.mp4<span class="item-mins">1h 11m</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Assortment%20Product%20Trainings%20&%20Resources/Promotions/Sales%20PROMOBOOK%20Training.mp4" target="_blank" rel="noopener">Sales PROMOBOOK Training.mp4</a> <span class="item-est">(54.7 min)</span><br><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Assortment%20Product%20Trainings%20&%20Resources/Promotions/Promobook%20File%20Formatting%20-%20recorded%20training.mp4" target="_blank" rel="noopener">Promobook File Formatting - recorded training.mp4</a> <span class="item-est">(16.5 min)</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Spotlight Ordering Process Training.mp4<span class="item-mins">27 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Assortment%20Product%20Trainings%20&%20Resources/Promotions/Spotlight%20Ordering%20Process%20Training.mp4" target="_blank" rel="noopener">Spotlight Ordering Process Training.mp4</a> <span class="item-est">(27.1 min)</span></div></div></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="module" data-kind="core">
+    <summary>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span class="mod-num">7</span>
+      <div class="mod-title-block">
+        <div class="mod-title">Level Up Live (continuing ed)</div>
+        <div class="mod-time">1h 13m with notes/pauses (56 min raw)</div>
+        <div class="mod-day">Wed 7/29</div>
+      </div>
+      <span class="mod-badge" data-count>0/4</span>
+    </summary>
+    <div class="mod-body">
+      <p class="mod-note">KeHE's ongoing webinar series for existing reps -- decks only in what's linkable here (the recordings are Stream links, not files in the library).</p>
+      <ul class="items">
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Level Up Why EBITDA Matters.pptx<span class="item-mins">11 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Level%20Up%20Live/P&L/Level%20Up%20Why%20EBITDA%20Matters.pptx" target="_blank" rel="noopener">Level Up Why EBITDA Matters.pptx</a> <span class="item-est">(11 min (15 slides))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Selling with Data Deck.pptx<span class="item-mins">14 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Level%20Up%20Live/Seling%20with%20Data/Selling%20with%20Data%20Deck.pptx" target="_blank" rel="noopener">Selling with Data Deck.pptx</a> <span class="item-est">(14 min (18 slides))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Source of Supply Conversion.pptx<span class="item-mins">10 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Level%20Up%20Live/SOURCE%20OF%20SUPPLY%20CONVERSION/Source%20of%20Supply%20Conversion.pptx" target="_blank" rel="noopener">Source of Supply Conversion.pptx</a> <span class="item-est">(10 min (13 slides))</span></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Using Excel to Accelerate Your Sales.pptx<span class="item-mins">21 min</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Learning%20%20Development/Training/Level%20Up%20Live/Excel/Using%20Excel%20to%20Accelerate%20Your%20Sales.pptx" target="_blank" rel="noopener">Using Excel to Accelerate Your Sales.pptx</a> <span class="item-est">(21 min (28 slides))</span></div></div></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="module" data-kind="reference">
+    <summary>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span class="mod-num">R</span>
+      <div class="mod-title-block">
+        <div class="mod-title">Reference only -- not sequential</div>
+        <div class="mod-time">Situational, look up when needed -- not timed</div>
+      </div>
+      <span class="mod-badge" data-count>0/5</span>
+    </summary>
+    <div class="mod-body">
+      <p class="mod-note">Not a watch-list. These are lookup material for when a specific situation calls
+        for them.</p>
+      <ul class="items">
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Show Training archive (Summer/Holiday/Winter Shows 2022-2026)<span class="item-tag">before a show</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/SALES%20SPECIFIC/SHOW%20TRAINING" target="_blank" rel="noopener">open folder on SharePoint</a></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Movista AMP (field merchandising rep app) guides<span class="item-tag">if doing store visits</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/MOVISTA" target="_blank" rel="noopener">open folder on SharePoint</a></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">NTS Data Adjustment training videos<span class="item-tag">as needed</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/SALES%20SPECIFIC/NTS%20DATA%20ADJUSTMENT" target="_blank" rel="noopener">open folder on SharePoint</a></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">PO Tracking (Chain / Independent dashboards)<span class="item-tag">as needed</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/SALES%20SPECIFIC/PO%20TRACKING" target="_blank" rel="noopener">open folder on SharePoint</a></div></div></li>
+        <li class="item"><input type="checkbox"><div class="item-text"><div class="item-name">Recent Commercial Connections Webinar recordings (last 2-3 months only)<span class="item-tag">current events</span></div><div class="item-path"><a href="https://kehe.sharepoint.com/sites/MerchandiseSolutions2/Training%20Materials/COMMERCIAL%20CONNECTIONS%20COMMUNICATIONS/KEHE%20COMMERCIAL%20CONNECTIONS%20WEBINAR/WEBINAR%20RECORDINGS" target="_blank" rel="noopener">open folder on SharePoint</a></div></div></li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="excluded">
+    <b>Left out on purpose:</b> the raw Customer Address Book exports (400+ dated spreadsheets), the
+    Commercial Connections newsletter/webinar archive going back to 2022, DC shipper-contents files, ARM
+    weekly tables, and the Hawaii-specific SOP set. These are working documents and data dumps that happened
+    to live in the same folders, not training material -- not silently dropped, just not curriculum.
+  </div>
+
+  <footer class="page">Built from the 2026-07-21 SharePoint scan, times measured 2026-07-22. Progress saves to this browser only.</footer>
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'kehe-training-plan-v2';
+  var checkboxes = Array.prototype.slice.call(document.querySelectorAll('li.item input[type="checkbox"]'));
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { state = {}; }
+
+  function itemId(cb, idx) {
+    var nameEl = cb.parentElement.querySelector('.item-name');
+    return (nameEl ? nameEl.textContent.trim() : ('item-' + idx));
+  }
+
+  checkboxes.forEach(function (cb, idx) {
+    var id = itemId(cb, idx);
+    cb.dataset.id = id;
+    if (state[id]) {
+      cb.checked = true;
+      cb.closest('li.item').classList.add('done');
+    }
+    cb.addEventListener('change', function () {
+      state[cb.dataset.id] = cb.checked;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      cb.closest('li.item').classList.toggle('done', cb.checked);
+      updateProgress();
+    });
+  });
+
+  function updateProgress() {
+    var total = checkboxes.length;
+    var done = checkboxes.filter(function (cb) { return cb.checked; }).length;
+    var pct = total ? done / total : 0;
+
+    document.getElementById('progressNums').textContent = done + ' / ' + total + ' items';
+    document.getElementById('barFill').style.width = (pct * 100) + '%';
+
+    var ring = document.getElementById('ringFill');
+    var circumference = 138.2;
+    ring.setAttribute('stroke-dashoffset', String(circumference * (1 - pct)));
+
+    document.querySelectorAll('details.module').forEach(function (mod) {
+      var items = mod.querySelectorAll('li.item input[type="checkbox"]');
+      var modDone = Array.prototype.filter.call(items, function (cb) { return cb.checked; }).length;
+      var badge = mod.querySelector('[data-count]');
+      if (badge) badge.textContent = modDone + '/' + items.length;
+    });
+  }
+
+  updateProgress();
+})();
+</script>
